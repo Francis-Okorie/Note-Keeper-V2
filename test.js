@@ -173,11 +173,3 @@ function saveAchiveToFirebase(archiveData) {
     const archivesRef = ref(db, "archives");
     push(archivesRef, archiveData);
 }
-
-
-
-
-
-
-
-
