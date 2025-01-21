@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
     font-family: "Afacad Flux", serif;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 6rem;
-    justify-content: space-between;
+
+}
+
+.main-content-form {
+    flex: 1;
+}
+
+.main-content-form form {
+    margin-top: 8rem;
+}
+
+::placeholder{
+    font-weight: 300;
 }
 
 nav .container{
@@ -17,7 +30,8 @@ nav .container{
 }
 
 nav {
-    background-color: #ff240c35;
+    /*background-color: #ff240c35;*/
+    cursor: pointer;
 }
 
 nav p{
@@ -66,6 +80,10 @@ textarea::-webkit-scrollbar{
     padding-right: .3rem;
 }
 
+.achive-text {
+    color: #000;
+}
+
 .note {
     border: 1px solid rgba(128, 128, 128, 0.626);
 }
@@ -112,10 +130,6 @@ textarea::-webkit-scrollbar{
     position: relative;
 }
 
-.note-keeper {
-    margin-top: 5rem;
-}
-
 textarea {
     height: 38px;
     padding: .5rem 1rem;
@@ -140,22 +154,34 @@ textarea {
 .email,
 .password {
     display: flex;
-    flex-direction: column;
-    width: 70%;
+    flex-direction: row;
+    width: 100%;
     margin: auto;
+    border: 1px solid rgba(128, 128, 128, 0.523);
+    padding: .1rem 1rem;
 }
 
 .success {
-    width: 70%;
-    margin: 10px auto 0;
-    background-color: rgba(2, 162, 2, 0.454);
+    width: 100%;
+    background-color: #5cb85c;
     color: #fff;
-    padding: .4rem 0rem 0rem 0rem;
+    padding: .4rem .1rem 0rem .1rem;
     margin-bottom: .6rem;
     font-size: .8rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.header-font {
+    text-transform: capitalize;
+}
+
+.link-color:active,
+.link-span {
+    color: #ff240c;
 }
 
 form button {
@@ -165,6 +191,14 @@ form button {
     padding: .3rem 2rem;
     margin-bottom: 1rem;
     cursor: pointer;
+    width: 100%;
+}
+
+#login-form,
+#sign-up-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .register-button {
@@ -178,10 +212,19 @@ form button {
     text-align: center;
 }
 
+footer {
+    margin-top: 6rem;
+}
+
 .privacy-note {
     font-size: .85rem;
-    background-color: rgba(128, 128, 128, 0.162);
-    padding: 2rem 0rem;
+    background-color: #ff240c;
+    padding: 4rem 0rem;
+    color: #fff;
+}
+
+.waving-hand {
+    width: 7%;
 }
 
 span,
@@ -191,6 +234,7 @@ span a {
 
 form input {
     outline: none;
+    border: none;
     padding: .3rem .8rem;
 }
 
@@ -198,17 +242,62 @@ form input {
     margin-top: 1rem;
 }
 
+.loading-gif {
+    max-width: 500px;
+}
+
+.pre-loader {
+    position: fixed;
+    z-index: 100; 
+    top: 0;
+    left: 0;
+    background: #191f26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.pre-loader.hidden {
+    animation: fadeOut 5s; /** change to 1s */
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.log-out {
+    display: flex;
+    padding-left: 1rem;
+}
+
 
 
 
 @media screen and (min-width: 770px) {
-    .container{
-        width: 500px;
-    }
-
     .email,
     .password {
-        width: 30%;
+        width: 100%;
+    }
+
+    .waving-hand {
+        width: 3%;
+    }
+
+    .store {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .note-keeper .note{
+        width: 500px;
+        margin: 0 auto;
     }
     
 }
