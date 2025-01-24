@@ -1,7 +1,8 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
 import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDoITq1gnioqWnnecAO16gtuO4vysiBL0k",
@@ -13,10 +14,24 @@ const firebaseConfig = {
     databaseURL: "https://savenote-d0c9f-default-rtdb.firebaseio.com/"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
+
+const logoutBtn = document.querySelector(".log-out");
+logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            console.log("User logged out successfully.");
+            alert("You have been logged out. Redirecting to login page...");
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            console.error("Error logging out:", error);
+            alert("An error occurred while logging out. Please try again.");
+        });
+});
 
 let currentUserUID = null;
 
@@ -24,13 +39,13 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         currentUserUID = user.uid;
         console.log("User is authenticated:", user.uid);
+        const emailName = document.querySelector(".email-id");
+        emailName.innerHTML = user.email;
         showUpdateStorage();
         showAchive();
     } else {
         currentUserUID = null;
-        console.error("No user is authenticated. Please log in.");
-        alert("Please log in to view and manage your notes.");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 });
 
@@ -39,6 +54,8 @@ const testRef = ref(db, "test");
 set(testRef, { message: "Hello, Firebase!" })
     .then(() => console.log("Data written successfully"))
     .catch((error) => console.error("Error writing data:", error));
+
+
 
 const createBtn = document.querySelector(".create-btn");
 const createNote = document.querySelector(".create-note");
@@ -58,6 +75,11 @@ const border = document.querySelector(".border");
 const deleteBin = document.querySelectorAll(".bin");
 const borderContainerElement = document.querySelector(".bordercontainer");
 
+
+
+window.addEventListener('load', function () {
+    document.querySelector('.pre-loader').className += ' hidden';
+});
 
 const inputHeader = document.querySelector(".inputheader");
 achiveContainerHeader.style.fontWeight="300";
@@ -159,9 +181,11 @@ function createNoteUI(data, key, type){
     containerNote.setAttribute("class", type === "notes" ? "bordercontainer" : "bordercontainer2");
 
     const header = document.createElement("h1");
+    header.setAttribute("class", "header-font")
     header.innerHTML = data.header;
 
     const text = document.createElement("p");
+    text.setAttribute("class", "text-small");
     text.innerHTML = data.text;
 
     const deleteBtn = document.createElement("img");
