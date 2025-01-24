@@ -41,7 +41,7 @@ submitBtn.addEventListener("click", (e)=>{
     // Signed up 
     const user = userCredential.user;
     const successText = document.querySelector(".success");
-    successText.classList.remove("hide");
+    successText.style.display = 'block';
     setTimeout(() => {
     successText.style.display = 'none';
     window.location.href ="index.html"
